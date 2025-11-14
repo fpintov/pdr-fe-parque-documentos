@@ -1,16 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { MatSidenavContainer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+  @ViewChild('sidenavContainer') sidenavContainer!: MatSidenavContainer;
+  
   title = 'Aplicación Angular';
   opened = true;
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  ngAfterViewInit() {
+    // Asegurar que el contenedor se inicialice correctamente
+    if (this.sidenavContainer) {
+      this.sidenavContainer.updateContentMargins();
+    }
+  }
+
   toggleSidenav() {
     this.opened = !this.opened;
+    // Forzar detección de cambios y actualización del layout
+    this.cdr.detectChanges();
+    setTimeout(() => {
+      if (this.sidenavContainer) {
+        this.sidenavContainer.updateContentMargins();
+      }
+    }, 350); // Esperar a que termine la transición CSS (300ms + margen)
   }
 
   menuItems = [
