@@ -14,11 +14,22 @@ export class AppComponent {
   }
 
   menuItems = [
-    { name: 'Dashboard', icon: 'dashboard', route: '/dashboard' },
-    { name: 'Usuarios', icon: 'people', route: '/usuarios' },
-    { name: 'Productos', icon: 'inventory', route: '/productos' },
-    { name: 'Ventas', icon: 'point_of_sale', route: '/ventas' },
-    { name: 'Reportes', icon: 'assessment', route: '/reportes' },
-    { name: 'Configuración', icon: 'settings', route: '/configuracion' }
+    { name: 'Dashboard', icon: 'dashboard', route: '/dashboard', hasSubmenu: false },
+    { 
+      name: 'Usuarios', 
+      icon: 'people', 
+      route: '/usuarios', 
+      hasSubmenu: true,
+      submenu: [
+        { name: 'Lista de Usuarios', icon: 'list', route: '/usuarios/lista' },
+        { name: 'Permisos', icon: 'security', route: '/usuarios/permisos' }
+      ]
+    },
+    { name: 'Productos', icon: 'inventory', route: '/productos', hasSubmenu: false },
+    { name: 'Ventas', icon: 'point_of_sale', route: '/ventas', hasSubmenu: false },
+    { name: 'Reportes', icon: 'assessment', route: '/reportes', hasSubmenu: false },
+    { name: 'Configuración', icon: 'settings', route: '/configuracion', hasSubmenu: false }
   ];
+
+  expandedPanels: { [key: string]: boolean } = {};
 }

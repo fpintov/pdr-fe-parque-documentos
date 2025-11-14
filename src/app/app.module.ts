@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 // Components
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -21,6 +22,8 @@ import { ProductosComponent } from './components/productos/productos.component';
 import { VentasComponent } from './components/ventas/ventas.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
 import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
+import { ListaUsuariosComponent } from './components/usuarios/lista-usuarios/lista-usuarios.component';
+import { PermisosUsuariosComponent } from './components/usuarios/permisos-usuarios/permisos-usuarios.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { ConfiguracionComponent } from './components/configuracion/configuracion
     ProductosComponent,
     VentasComponent,
     ReportesComponent,
-    ConfiguracionComponent
+    ConfiguracionComponent,
+    ListaUsuariosComponent,
+    PermisosUsuariosComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,8 @@ import { ConfiguracionComponent } from './components/configuracion/configuracion
     MatIconModule,
     MatListModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
