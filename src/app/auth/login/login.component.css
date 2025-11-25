@@ -1,0 +1,214 @@
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 50%, rgba(240, 147, 251, 0.8) 100%);
+  backdrop-filter: blur(10px);
+}
+
+.login-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 50px 40px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  width: 100%;
+  max-width: 420px;
+  margin: 20px;
+}
+
+.user-icon {
+  width: 80px;
+  height: 80px;
+  background: #1a237e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.user-icon mat-icon {
+  color: white;
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 0 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.input-group:focus-within {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.input-icon {
+  color: rgba(255, 255, 255, 0.9);
+  margin-right: 10px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.custom-form-field {
+  flex: 1;
+  width: 100%;
+}
+
+.custom-form-field ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+.custom-form-field ::ng-deep .mat-form-field-infix {
+  border: none;
+  padding: 15px 0;
+}
+
+.custom-form-field ::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+.custom-input {
+  color: white;
+  font-size: 16px;
+}
+
+.custom-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.custom-input:-webkit-autofill,
+.custom-input:-webkit-autofill:hover,
+.custom-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.1) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.password-toggle {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.password-toggle mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.remember-checkbox ::ng-deep .mat-checkbox-frame {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.remember-checkbox ::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: #1a237e;
+}
+
+.remember-checkbox ::ng-deep .mat-checkbox-label {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+}
+
+.forgot-password {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.login-button {
+  margin-top: 20px;
+  background: #42a5f5 !important;
+  color: white !important;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(66, 165, 245, 0.4);
+  transition: all 0.3s ease;
+}
+
+.login-button:hover:not(:disabled) {
+  background: #1e88e5 !important;
+  box-shadow: 0 6px 20px rgba(66, 165, 245, 0.6);
+  transform: translateY(-2px);
+}
+
+.login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Errores */
+.custom-form-field ::ng-deep .mat-error {
+  color: #ffebee;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 40px 30px;
+    margin: 15px;
+  }
+
+  .user-icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .user-icon mat-icon {
+    font-size: 35px;
+    width: 35px;
+    height: 35px;
+  }
+}
+

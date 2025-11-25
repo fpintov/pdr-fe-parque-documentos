@@ -1,22 +1,49 @@
-import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, ChangeDetectorRef, OnInit } from '@angular/core';
 import { MatSidenavContainer } from '@angular/material/sidenav';
+import { Router, NavigationEnd } from '@angular/router';
+import { AuthService } from './auth/auth.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit {
-  @ViewChild('sidenavContainer') sidenavContainer!: MatSidenavContainer;
+export class AppComponent implements AfterViewInit, OnInit {
+  @ViewChild('sidenavContainer') sidenavContainer?: MatSidenavContainer;
   
-  title = 'Aplicación Angular';
+  title = 'PDR Documentos Parque';
   opened = true;
+  isAuthenticated = false;
+  showLogin = false;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    // Verificar estado de autenticación inicial
+    this.checkAuthentication();
+    
+    // Escuchar cambios de ruta
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.checkAuthentication();
+    });
+  }
+
+  checkAuthentication(): void {
+    this.isAuthenticated = this.authService.isLoggedIn();
+    const currentRoute = this.router.url || '';
+    this.showLogin = !this.isAuthenticated || currentRoute === '/login';
+  }
 
   ngAfterViewInit() {
     // Asegurar que el contenedor se inicialice correctamente
-    if (this.sidenavContainer) {
+    if (this.sidenavContainer && !this.showLogin) {
       this.sidenavContainer.updateContentMargins();
     }
   }
@@ -26,29 +53,18 @@ export class AppComponent implements AfterViewInit {
     // Forzar detección de cambios y actualización del layout
     this.cdr.detectChanges();
     setTimeout(() => {
-      if (this.sidenavContainer) {
+      if (this.sidenavContainer && !this.showLogin) {
         this.sidenavContainer.updateContentMargins();
       }
     }, 350); // Esperar a que termine la transición CSS (300ms + margen)
   }
 
   menuItems = [
-    { name: 'Dashboard', icon: 'dashboard', route: '/dashboard', hasSubmenu: false },
-    { 
-      name: 'Usuarios', 
-      icon: 'people', 
-      route: '/usuarios', 
-      hasSubmenu: true,
-      submenu: [
-        { name: 'Lista de Usuarios', icon: 'list', route: '/usuarios/lista' },
-        { name: 'Permisos', icon: 'security', route: '/usuarios/permisos' }
-      ]
-    },
-    { name: 'Productos', icon: 'inventory', route: '/productos', hasSubmenu: false },
-    { name: 'Ventas', icon: 'point_of_sale', route: '/ventas', hasSubmenu: false },
-    { name: 'Reportes', icon: 'assessment', route: '/reportes', hasSubmenu: false },
-    { name: 'Configuración', icon: 'settings', route: '/configuracion', hasSubmenu: false }
+    { name: 'Generación', icon: 'create', route: '/generacion' },
+    { name: 'Distribución', icon: 'share', route: '/distribucion' },
+    { name: 'Asignación', icon: 'assignment', route: '/asignacion' },
+    { name: 'Cambio de Estado', icon: 'swap_horiz', route: '/cambio-estado' },
+    { name: 'Consulta', icon: 'search', route: '/consulta' },
+    { name: 'Mantenedor de Unidades', icon: 'settings', route: '/mantenedor-unidades' }
   ];
-
-  expandedPanels: { [key: string]: boolean } = {};
 }

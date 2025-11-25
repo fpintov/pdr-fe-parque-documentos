@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  token_key: 'token',
+  url_config_server: 'http://localhost:8888/',
+  ms_port: 3000,
+  ms_base_uri: '/api/pdr/v01/parque/documentos',
+  endp_get_empresas_user: 'empresas-sp',
+  endp_get_parametros: 'parametros',
+  endp_get_lst_unidades: 'unidades',
+  endp_get_tipo_documento: 'tipos-documentos',
+  url_endp_login: 'https://portal-digital-cross.losparques.cl/api/pdr/v01/cross/security/portal-digital/login'
 };
 
 /*

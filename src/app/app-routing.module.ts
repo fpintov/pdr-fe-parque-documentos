@@ -1,24 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { UsuariosComponent } from './components/usuarios/usuarios.component';
-import { ProductosComponent } from './components/productos/productos.component';
-import { VentasComponent } from './components/ventas/ventas.component';
-import { ReportesComponent } from './components/reportes/reportes.component';
-import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
-import { ListaUsuariosComponent } from './components/usuarios/lista-usuarios/lista-usuarios.component';
-import { PermisosUsuariosComponent } from './components/usuarios/permisos-usuarios/permisos-usuarios.component';
+import { LoginComponent } from './auth/login/login.component';
+import { GeneracionComponent } from './modules/generacion/generacion.component';
+import { DistribucionComponent } from './modules/distribucion/distribucion.component';
+import { AsignacionComponent } from './modules/asignacion/asignacion.component';
+import { CambioEstadoComponent } from './modules/cambio-estado/cambio-estado.component';
+import { ConsultaComponent } from './modules/consulta/consulta.component';
+import { MantenedorUnidadesComponent } from './modules/mantenedor-unidades/mantenedor-unidades.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'usuarios', component: UsuariosComponent },
-  { path: 'usuarios/lista', component: ListaUsuariosComponent },
-  { path: 'usuarios/permisos', component: PermisosUsuariosComponent },
-  { path: 'productos', component: ProductosComponent },
-  { path: 'ventas', component: VentasComponent },
-  { path: 'reportes', component: ReportesComponent },
-  { path: 'configuracion', component: ConfiguracionComponent }
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'generacion', component: GeneracionComponent },
+  { path: 'distribucion', component: DistribucionComponent },
+  { path: 'asignacion', component: AsignacionComponent },
+  { path: 'cambio-estado', component: CambioEstadoComponent },
+  { path: 'consulta', component: ConsultaComponent },
+  { path: 'mantenedor-unidades', component: MantenedorUnidadesComponent }
 ];
 
 @NgModule({

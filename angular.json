@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular12-accordion-sidebar-menu-app": {
+    "pdr-documentos-parque": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular12-accordion-sidebar-menu-app",
+            "outputPath": "dist/pdr-documentos-parque",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -68,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular12-accordion-sidebar-menu-app:build:production"
+              "browserTarget": "pdr-documentos-parque:build:production"
             },
             "development": {
-              "browserTarget": "angular12-accordion-sidebar-menu-app:build:development"
+              "browserTarget": "pdr-documentos-parque:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular12-accordion-sidebar-menu-app:build"
+            "browserTarget": "pdr-documentos-parque:build"
           }
         },
         "test": {
@@ -102,5 +102,5 @@
       }
     }
   },
-  "defaultProject": "angular12-accordion-sidebar-menu-app"
+  "defaultProject": "pdr-documentos-parque"
 }

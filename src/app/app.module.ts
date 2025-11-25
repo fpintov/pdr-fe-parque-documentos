@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,32 +16,40 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+// Interceptors
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 // Components
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { UsuariosComponent } from './components/usuarios/usuarios.component';
-import { ProductosComponent } from './components/productos/productos.component';
-import { VentasComponent } from './components/ventas/ventas.component';
-import { ReportesComponent } from './components/reportes/reportes.component';
-import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
-import { ListaUsuariosComponent } from './components/usuarios/lista-usuarios/lista-usuarios.component';
-import { PermisosUsuariosComponent } from './components/usuarios/permisos-usuarios/permisos-usuarios.component';
+import { LoginComponent } from './auth/login/login.component';
+import { GeneracionComponent } from './modules/generacion/generacion.component';
+import { DistribucionComponent } from './modules/distribucion/distribucion.component';
+import { AsignacionComponent } from './modules/asignacion/asignacion.component';
+import { CambioEstadoComponent } from './modules/cambio-estado/cambio-estado.component';
+import { ConsultaComponent } from './modules/consulta/consulta.component';
+import { MantenedorUnidadesComponent } from './modules/mantenedor-unidades/mantenedor-unidades.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
-    UsuariosComponent,
-    ProductosComponent,
-    VentasComponent,
-    ReportesComponent,
-    ConfiguracionComponent,
-    ListaUsuariosComponent,
-    PermisosUsuariosComponent
+    LoginComponent,
+    GeneracionComponent,
+    DistribucionComponent,
+    AsignacionComponent,
+    CambioEstadoComponent,
+    ConsultaComponent,
+    MantenedorUnidadesComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
     AppRoutingModule,
     MatSidenavModule,
     MatToolbarModule,
@@ -48,9 +58,19 @@ import { PermisosUsuariosComponent } from './components/usuarios/permisos-usuari
     MatListModule,
     MatMenuModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

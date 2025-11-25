@@ -1,0 +1,98 @@
+<div class="generacion-container">
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <span>Adm. de Documentos</span>
+    <span class="separator">/</span>
+    <span>Modulo Documentos</span>
+    <span class="separator">/</span>
+    <span class="active">Generacion de Documentos</span>
+  </div>
+
+  <!-- Título -->
+  <h1 class="page-title">Generacion de Documentos</h1>
+
+  <!-- Formulario -->
+  <mat-card class="form-card">
+    <form [formGroup]="generacionForm" class="generacion-form">
+      <div class="form-row">
+        <!-- Columna Izquierda -->
+        <div class="form-column">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>* Empresa</mat-label>
+            <mat-select formControlName="empresa" (selectionChange)="onEmpresaChange()" [disabled]="loadingEmpresas">
+              <mat-option value="">Seleccione......</mat-option>
+              <mat-option *ngFor="let empresa of empresas" [value]="empresa.EMPR_COD">
+                {{ empresa.EMPR_DESC }}
+              </mat-option>
+            </mat-select>
+            <mat-hint *ngIf="loadingEmpresas">Cargando empresas...</mat-hint>
+            <mat-error *ngIf="generacionForm.get('empresa')?.hasError('required')">
+              Empresa es requerida
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>* Tipo Documento</mat-label>
+            <mat-select formControlName="tipoDocumento">
+              <mat-option value="">Seleccione......</mat-option>
+              <mat-option *ngFor="let tipoDoc of tiposDocumento" [value]="tipoDoc.SUB_FAMI_COD">
+                {{ tipoDoc.SUB_FAMI_DESC }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="generacionForm.get('tipoDocumento')?.hasError('required')">
+              Tipo Documento es requerido
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>* Folio Final</mat-label>
+            <input matInput formControlName="folioFinal" type="number">
+            <mat-error *ngIf="generacionForm.get('folioFinal')?.hasError('required')">
+              Folio Final es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Columna Derecha -->
+        <div class="form-column">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>* Stock Mayor</mat-label>
+            <input matInput [value]="stockMayor" readonly>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>* Serie</mat-label>
+            <input matInput formControlName="serie">
+            <mat-error *ngIf="generacionForm.get('serie')?.hasError('required')">
+              Serie es requerida
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>* Folio Inicial</mat-label>
+            <input matInput formControlName="folioInicial" type="number">
+            <mat-error *ngIf="generacionForm.get('folioInicial')?.hasError('required')">
+              Folio Inicial es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="form-actions">
+        <button mat-raised-button type="button" (click)="eliminar()" 
+                [disabled]="!generacionForm.dirty">
+          Eliminar
+        </button>
+        <button mat-raised-button color="primary" type="button" (click)="generar()"
+                [disabled]="!generacionForm.valid">
+          Generar
+        </button>
+        <button mat-raised-button color="accent" type="button" (click)="crearSerie()"
+                [disabled]="!generacionForm.valid">
+          Crear Serie
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

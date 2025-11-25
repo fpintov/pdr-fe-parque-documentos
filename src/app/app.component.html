@@ -1,4 +1,10 @@
-<mat-sidenav-container class="sidenav-container" #sidenavContainer>
+<!-- Mostrar solo el router-outlet cuando esté en login -->
+<div *ngIf="showLogin" class="login-wrapper">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- Mostrar el sidenav cuando esté autenticado -->
+<mat-sidenav-container *ngIf="!showLogin" class="sidenav-container" #sidenavContainer>
   <mat-sidenav
     #sidenav
     mode="side"
@@ -7,54 +13,17 @@
     class="sidenav">
     <div class="sidenav-header">
       <h2 *ngIf="opened" class="app-title">{{ title }}</h2>
-      <h2 *ngIf="!opened" class="app-title-mini">A</h2>
+      <h2 *ngIf="!opened" class="app-title-mini">PDR</h2>
     </div>
     <mat-nav-list>
-      <ng-container *ngFor="let item of menuItems">
-        <!-- Items con submenú (acordeón) -->
-        <mat-expansion-panel 
-          *ngIf="item.hasSubmenu && opened" 
-          [expanded]="expandedPanels[item.name]"
-          (opened)="expandedPanels[item.name] = true"
-          (closed)="expandedPanels[item.name] = false"
-          class="menu-expansion-panel">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-icon>{{ item.icon }}</mat-icon>
-              <span class="menu-item-text">{{ item.name }}</span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-nav-list>
-            <a mat-list-item 
-               *ngFor="let subItem of item.submenu" 
-               [routerLink]="subItem.route" 
-               routerLinkActive="active"
-               [routerLinkActiveOptions]="{exact: false}">
-              <mat-icon>{{ subItem.icon }}</mat-icon>
-              <span class="menu-item-text">{{ subItem.name }}</span>
-            </a>
-          </mat-nav-list>
-        </mat-expansion-panel>
-        
-        <!-- Item simple sin submenú -->
-        <a mat-list-item 
-           *ngIf="!item.hasSubmenu" 
-           [routerLink]="item.route" 
-           routerLinkActive="active" 
-           [routerLinkActiveOptions]="{exact: false}">
-          <mat-icon>{{ item.icon }}</mat-icon>
-          <span *ngIf="opened" class="menu-item-text">{{ item.name }}</span>
-        </a>
-        
-        <!-- Item con submenú cuando el sidenav está colapsado -->
-        <a mat-list-item 
-           *ngIf="item.hasSubmenu && !opened" 
-           [routerLink]="item.route" 
-           routerLinkActive="active" 
-           [routerLinkActiveOptions]="{exact: false}">
-          <mat-icon>{{ item.icon }}</mat-icon>
-        </a>
-      </ng-container>
+      <a mat-list-item 
+         *ngFor="let item of menuItems" 
+         [routerLink]="item.route" 
+         routerLinkActive="active" 
+         [routerLinkActiveOptions]="{exact: false}">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span *ngIf="opened" class="menu-item-text">{{ item.name }}</span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
 
@@ -63,7 +32,7 @@
       <button mat-icon-button (click)="toggleSidenav()" aria-label="Toggle sidenav">
         <mat-icon>menu</mat-icon>
       </button>
-      <span class="toolbar-title">Sistema de Gestión</span>
+      <span class="toolbar-title">PDR Documentos Parque</span>
     </mat-toolbar>
 
     <div class="main-content">

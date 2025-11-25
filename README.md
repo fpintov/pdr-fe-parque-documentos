@@ -1,4 +1,4 @@
-# Angular 12 - Accordion Sidebar Menu App
+# PDR Documentos Parque
 
 Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) versión 12.2.18.
 
