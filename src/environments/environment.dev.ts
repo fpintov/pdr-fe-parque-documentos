@@ -12,6 +12,9 @@ export const environment = {
   endp_get_parametros: 'parametros',
   endp_get_lst_unidades: 'unidades',
   endp_get_tipo_documento: 'tipos-documentos',
+  endp_crear_serie: 'series',
+  endp_generar_documentos: 'generar',
+  endp_eliminar_documentos: 'eliminar',
   url_endp_login: 'https://portal-digital-cross.losparques.cl/api/pdr/v01/cross/security/portal-digital/login'
 };
 

@@ -32,6 +32,7 @@ import { AsignacionComponent } from './modules/asignacion/asignacion.component';
 import { CambioEstadoComponent } from './modules/cambio-estado/cambio-estado.component';
 import { ConsultaComponent } from './modules/consulta/consulta.component';
 import { MantenedorUnidadesComponent } from './modules/mantenedor-unidades/mantenedor-unidades.component';
+import { MessageModalComponent } from './shared/modals/message-modal.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MantenedorUnidadesComponent } from './modules/mantenedor-unidades/mante
     AsignacionComponent,
     CambioEstadoComponent,
     ConsultaComponent,
-    MantenedorUnidadesComponent
+    MantenedorUnidadesComponent,
+    MessageModalComponent
   ],
   imports: [
     BrowserModule,

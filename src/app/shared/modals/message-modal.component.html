@@ -1,0 +1,21 @@
+<div class="modal-overlay" *ngIf="isVisible" (click)="close()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header" [class]="headerClass">
+      {{ title }}
+    </div>
+    <div class="modal-content">
+      <div class="modal-message">
+        {{ message }}
+      </div>
+      <div class="modal-actions">
+        <button 
+          mat-raised-button 
+          [class]="buttonClass"
+          (click)="close()">
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

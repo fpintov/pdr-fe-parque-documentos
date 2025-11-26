@@ -32,6 +32,42 @@ export interface TipoDocumentoDto {
   FAMI_LARGO_SERIE: number;
 }
 
+export interface CrearSerieRequestDto {
+  emprCod: string;
+  serieCod: string;
+  subFamiCod: string;
+}
+
+export interface CrearSerieResponseDto {
+  [key: string]: any;
+}
+
+export interface GenerarDocumentosRequestDto {
+  emprCod: string;
+  unidCod: string;
+  subFamiCod: string;
+  serieCod: string;
+  folioInicial: number;
+  folioFinal: number;
+}
+
+export interface GenerarDocumentosResponseDto {
+  [key: string]: any;
+}
+
+export interface EliminarDocumentosRequestDto {
+  emprCod: string;
+  unidCod: string;
+  subFamiCod: string;
+  serieCod: string;
+  folioInicial: number;
+  folioFinal: number;
+}
+
+export interface EliminarDocumentosResponseDto {
+  [key: string]: any;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -113,6 +149,30 @@ export class GeneracionService {
       .set('unidCod', unidCod);
 
     return this.http.get<TipoDocumentoDto[]>(url, { params });
+  }
+
+  crearSerie(crearSerieDto: CrearSerieRequestDto): Observable<CrearSerieResponseDto> {
+    // Construir la URL concatenando las constantes del environment
+    const baseUrl = environment.url_config_server.replace(/\/$/, '').replace(/:\d+/, '');
+    const url = `${baseUrl}:${environment.ms_port}${environment.ms_base_uri}/${environment.endp_crear_serie}`;
+
+    return this.http.post<CrearSerieResponseDto>(url, crearSerieDto);
+  }
+
+  generarDocumentos(generarDocumentosDto: GenerarDocumentosRequestDto): Observable<GenerarDocumentosResponseDto> {
+    // Construir la URL concatenando las constantes del environment
+    const baseUrl = environment.url_config_server.replace(/\/$/, '').replace(/:\d+/, '');
+    const url = `${baseUrl}:${environment.ms_port}${environment.ms_base_uri}/${environment.endp_generar_documentos}`;
+
+    return this.http.post<GenerarDocumentosResponseDto>(url, generarDocumentosDto);
+  }
+
+  eliminarDocumentos(eliminarDocumentosDto: EliminarDocumentosRequestDto): Observable<EliminarDocumentosResponseDto> {
+    // Construir la URL concatenando las constantes del environment
+    const baseUrl = environment.url_config_server.replace(/\/$/, '').replace(/:\d+/, '');
+    const url = `${baseUrl}:${environment.ms_port}${environment.ms_base_uri}/${environment.endp_eliminar_documentos}`;
+
+    return this.http.post<EliminarDocumentosResponseDto>(url, eliminarDocumentosDto);
   }
 }
 

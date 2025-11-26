@@ -3,6 +3,9 @@
   <router-outlet></router-outlet>
 </div>
 
+<!-- Modal global para mensajes -->
+<app-message-modal></app-message-modal>
+
 <!-- Mostrar el sidenav cuando esté autenticado -->
 <mat-sidenav-container *ngIf="!showLogin" class="sidenav-container" #sidenavContainer>
   <mat-sidenav
@@ -40,3 +43,6 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+<!-- Modal global para mensajes -->
+<app-message-modal></app-message-modal>

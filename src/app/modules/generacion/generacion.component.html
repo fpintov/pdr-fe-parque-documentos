@@ -80,17 +80,20 @@
 
       <!-- Botones -->
       <div class="form-actions">
-        <button mat-raised-button type="button" (click)="eliminar()" 
-                [disabled]="!generacionForm.dirty">
-          Eliminar
+        <button mat-raised-button type="button" class="btn-danger" (click)="eliminar()" 
+                [disabled]="!generacionForm.valid || loadingEliminar">
+          <span *ngIf="!loadingEliminar">Eliminar</span>
+          <span *ngIf="loadingEliminar">Eliminando...</span>
         </button>
-        <button mat-raised-button color="primary" type="button" (click)="generar()"
-                [disabled]="!generacionForm.valid">
-          Generar
+        <button mat-raised-button type="button" class="btn-success" (click)="generar()"
+                [disabled]="!generacionForm.valid || loadingGenerar">
+          <span *ngIf="!loadingGenerar">Generar</span>
+          <span *ngIf="loadingGenerar">Generando...</span>
         </button>
-        <button mat-raised-button color="accent" type="button" (click)="crearSerie()"
-                [disabled]="!generacionForm.valid">
-          Crear Serie
+        <button mat-raised-button type="button" class="btn-secondary" (click)="crearSerie()"
+                [disabled]="!isCrearSerieValid() || loadingCrearSerie">
+          <span *ngIf="!loadingCrearSerie">Crear Serie</span>
+          <span *ngIf="loadingCrearSerie">Creando...</span>
         </button>
       </div>
     </form>
