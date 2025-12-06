@@ -60,11 +60,6 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   menuItems = [
-    { name: 'Generación', icon: 'create', route: '/generacion' },
-    { name: 'Distribución', icon: 'share', route: '/distribucion' },
-    { name: 'Asignación', icon: 'assignment', route: '/asignacion' },
-    { name: 'Cambio de Estado', icon: 'swap_horiz', route: '/cambio-estado' },
-    { name: 'Consulta', icon: 'search', route: '/consulta' },
-    { name: 'Mantenedor de Unidades', icon: 'settings', route: '/mantenedor-unidades' }
+    { name: 'Administración de Fuentes', icon: 'source', route: '/adm-fuentes' }
   ];
 }

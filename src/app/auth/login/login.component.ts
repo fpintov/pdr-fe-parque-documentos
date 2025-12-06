@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(email, password).subscribe({
         next: (response) => {
           if (response && response.token) {
-            this.router.navigate(['/generacion']);
+            this.router.navigate(['/adm-fuentes']);
           } else {
             console.error('Error: No se recibió token en la respuesta');
             alert('Error: No se pudo completar el login. Por favor, intente nuevamente.');

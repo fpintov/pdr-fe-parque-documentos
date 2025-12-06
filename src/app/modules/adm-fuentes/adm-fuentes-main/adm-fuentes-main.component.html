@@ -1,0 +1,137 @@
+<div class="main-container">
+
+  <!-- Título -->
+  <h1 class="page-title">Mantenedor de Fuentes</h1>
+
+  <!-- Tabla -->
+  <div class="table-card">
+    <div class="table-container">
+      <table class="fuentes-table">
+        <!-- Header Row -->
+        <thead>
+          <tr class="header-row">
+            <th>Codigo</th>
+            <th>Descripción</th>
+            <th>Categoría</th>
+            <th>Grupo</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        
+        <!-- Filter Row -->
+        <thead>
+          <tr class="filter-row">
+            <th class="filter-header">
+              <input 
+                type="text" 
+                class="filter-input" 
+                [(ngModel)]="filtroCodigo" 
+                (ngModelChange)="onFilterChange()" 
+                placeholder="Filtrar Codigo">
+            </th>
+            <th class="filter-header">
+              <input 
+                type="text" 
+                class="filter-input" 
+                [(ngModel)]="filtroDescripcion" 
+                (ngModelChange)="onFilterChange()" 
+                placeholder="Filtrar Descripción">
+            </th>
+            <th class="filter-header">
+              <select 
+                class="filter-select" 
+                [(ngModel)]="filtroCategoria" 
+                (ngModelChange)="onFilterChange()">
+                <option value="">Todas</option>
+                <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+              </select>
+            </th>
+            <th class="filter-header">
+              <select 
+                class="filter-select" 
+                [(ngModel)]="filtroGrupo" 
+                (ngModelChange)="onFilterChange()">
+                <option value="">Todos</option>
+                <option *ngFor="let grupo of grupos" [value]="grupo">{{ grupo }}</option>
+              </select>
+            </th>
+            <th class="filter-header">
+              <select 
+                class="filter-select" 
+                [(ngModel)]="filtroEstado" 
+                (ngModelChange)="onFilterChange()">
+                <option value="">Todos</option>
+                <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+              </select>
+            </th>
+          </tr>
+        </thead>
+
+        <!-- Data Rows -->
+        <tbody>
+          <tr 
+            *ngFor="let fuente of paginatedFuentes" 
+            class="data-row"
+            [class.selected-row]="selectedFuente?.codigo === fuente.codigo"
+            (click)="selectFuente(fuente)">
+            <td>{{ fuente.codigo }}</td>
+            <td>{{ fuente.descripcion }}</td>
+            <td>{{ fuente.categoria.descripcion }}</td>
+            <td>{{ fuente.grupo.descripcion }}</td>
+            <td>{{ fuente.estado.descripcion }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginación y Botones -->
+    <div class="table-footer">
+      <!-- Paginación -->
+      <div class="pagination">
+        <button 
+          class="page-button" 
+          (click)="onFirstPage()" 
+          [disabled]="currentPage === 1"
+          title="Primera página">
+          ««
+        </button>
+        <button 
+          class="page-button" 
+          (click)="onPreviousPage()" 
+          [disabled]="currentPage === 1"
+          title="Página anterior">
+          ‹
+        </button>
+        <span class="page-info">Pag. {{ currentPage }} de {{ totalPages }}</span>
+        <button 
+          class="page-button" 
+          (click)="onNextPage()" 
+          [disabled]="currentPage === totalPages"
+          title="Página siguiente">
+          ›
+        </button>
+        <button 
+          class="page-button" 
+          (click)="onLastPage()" 
+          [disabled]="currentPage === totalPages"
+          title="Última página">
+          »»
+        </button>
+      </div>
+
+      <!-- Botones de Acción -->
+      <div class="action-buttons">
+        <button class="btn btn-primary btn-nuevo" (click)="nuevo()">
+          Nuevo
+        </button>
+        <button 
+          class="btn btn-accent btn-regularizar" 
+          (click)="regularizar()"
+          [disabled]="!selectedFuente">
+          Regularizar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

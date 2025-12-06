@@ -1,0 +1,137 @@
+<div class="main-container">
+  <!-- Título -->
+  <h1 class="page-title">Mantenedor de Fuentes</h1>
+
+  <!-- Formulario -->
+  <div class="form-card">
+    <form [formGroup]="fuenteForm" (ngSubmit)="onSubmit()" class="fuente-form">
+      <!-- Fila 1: Código y Estado -->
+      <div class="form-row">
+        <div class="form-field form-field-half">
+          <label for="codigo" class="form-label">
+            * Código
+          </label>
+          <div class="form-input-wrapper">
+            <input
+              type="text"
+              id="codigo"
+              formControlName="codigo"
+              class="form-input"
+              [class.error]="codigo?.invalid && codigo?.touched">
+            <span class="error-message" *ngIf="codigo?.invalid && codigo?.touched">
+              El código es requerido
+            </span>
+          </div>
+        </div>
+        <div class="form-field form-field-half">
+          <label for="estado" class="form-label">
+            * Estado
+          </label>
+          <div class="form-input-wrapper">
+            <select
+              id="estado"
+              formControlName="estado"
+              class="form-select"
+              [class.error]="estado?.invalid && estado?.touched">
+              <option value="">Seleccione un estado</option>
+              <option *ngFor="let estadoOption of estados" [value]="estadoOption.codigo">
+                {{ estadoOption.descripcion }}
+              </option>
+            </select>
+            <span class="error-message" *ngIf="estado?.invalid && estado?.touched">
+              El estado es requerido
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 2: Descripción -->
+      <div class="form-row">
+        <div class="form-field form-field-half">
+          <label for="descripcion" class="form-label">
+            * Descripción
+          </label>
+          <div class="form-input-wrapper">
+            <input
+              type="text"
+              id="descripcion"
+              formControlName="descripcion"
+              class="form-input"
+              [class.error]="descripcion?.invalid && descripcion?.touched">
+            <span class="error-message" *ngIf="descripcion?.invalid && descripcion?.touched">
+              La descripción es requerida
+            </span>
+          </div>
+        </div>
+        <div class="form-field form-field-half">
+          <!-- Columna vacía -->
+        </div>
+      </div>
+
+      <!-- Fila 3: Grupo -->
+      <div class="form-row">
+        <div class="form-field form-field-half">
+          <label for="grupo" class="form-label">
+            * Grupo
+          </label>
+          <div class="form-input-wrapper">
+            <select
+              id="grupo"
+              formControlName="grupo"
+              class="form-select"
+              [class.error]="grupo?.invalid && grupo?.touched">
+              <option value="">Seleccione un grupo</option>
+              <option *ngFor="let grupoOption of grupos" [value]="grupoOption.codigo">
+                {{ grupoOption.descripcion }}
+              </option>
+            </select>
+            <span class="error-message" *ngIf="grupo?.invalid && grupo?.touched">
+              El grupo es requerido
+            </span>
+          </div>
+        </div>
+        <div class="form-field form-field-half">
+          <!-- Columna vacía -->
+        </div>
+      </div>
+
+      <!-- Fila 4: Categoría -->
+      <div class="form-row">
+        <div class="form-field form-field-half">
+          <label for="categoria" class="form-label">
+            * Categoría
+          </label>
+          <div class="form-input-wrapper">
+            <select
+              id="categoria"
+              formControlName="categoria"
+              class="form-select"
+              [class.error]="categoria?.invalid && categoria?.touched">
+              <option value="">Seleccione una categoría</option>
+              <option *ngFor="let categoriaOption of categorias" [value]="categoriaOption.codigo">
+                {{ categoriaOption.descripcion }}
+              </option>
+            </select>
+            <span class="error-message" *ngIf="categoria?.invalid && categoria?.touched">
+              La categoría es requerida
+            </span>
+          </div>
+        </div>
+        <div class="form-field form-field-half">
+          <!-- Columna vacía -->
+        </div>
+      </div>
+
+      <!-- Botones de Acción -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="volver()">
+          Volver
+        </button>
+        <button type="submit" class="btn btn-primary">
+          Aceptar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

@@ -20,30 +20,25 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 // Interceptors
 import { AuthInterceptor } from './auth/auth.interceptor';
 
 // Components
 import { LoginComponent } from './auth/login/login.component';
-import { GeneracionComponent } from './modules/generacion/generacion.component';
-import { DistribucionComponent } from './modules/distribucion/distribucion.component';
-import { AsignacionComponent } from './modules/asignacion/asignacion.component';
-import { CambioEstadoComponent } from './modules/cambio-estado/cambio-estado.component';
-import { ConsultaComponent } from './modules/consulta/consulta.component';
-import { MantenedorUnidadesComponent } from './modules/mantenedor-unidades/mantenedor-unidades.component';
+import { AdmFuentesMainComponent } from './modules/adm-fuentes/adm-fuentes-main/adm-fuentes-main.component';
+import { AdmFuentesCrearEditarComponent } from './modules/adm-fuentes/adm-fuentes-crear-editar/adm-fuentes-crear-editar.component';
 import { MessageModalComponent } from './shared/modals/message-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    GeneracionComponent,
-    DistribucionComponent,
-    AsignacionComponent,
-    CambioEstadoComponent,
-    ConsultaComponent,
-    MantenedorUnidadesComponent,
+    AdmFuentesMainComponent,
+    AdmFuentesCrearEditarComponent,
     MessageModalComponent
   ],
   imports: [
@@ -64,7 +59,10 @@ import { MessageModalComponent } from './shared/modals/message-modal.component';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     {
