@@ -31,6 +31,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { LoginComponent } from './auth/login/login.component';
 import { AdmFuentesMainComponent } from './modules/adm-fuentes/adm-fuentes-main/adm-fuentes-main.component';
 import { AdmFuentesCrearEditarComponent } from './modules/adm-fuentes/adm-fuentes-crear-editar/adm-fuentes-crear-editar.component';
+import { TipoSepulturaMainComponent } from './modules/tipo-sepultura/tipo-sepultura-main/tipo-sepultura-main.component';
+import { TipoSepulturaCrearEditarComponent } from './modules/tipo-sepultura/tipo-sepultura-crear-editar/tipo-sepultura-crear-editar.component';
 import { MessageModalComponent } from './shared/modals/message-modal.component';
 
 @NgModule({
@@ -39,6 +41,8 @@ import { MessageModalComponent } from './shared/modals/message-modal.component';
     LoginComponent,
     AdmFuentesMainComponent,
     AdmFuentesCrearEditarComponent,
+    TipoSepulturaMainComponent,
+    TipoSepulturaCrearEditarComponent,
     MessageModalComponent
   ],
   imports: [

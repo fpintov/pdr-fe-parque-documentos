@@ -104,6 +104,11 @@ export class AdmFuentesCrearEditarComponent implements OnInit {
           // Cargar datos desde el backend usando el ID
           this.loadFuenteData();
         }
+        
+        // Deshabilitar el campo código si está en modo edición
+        if (this.isEditMode || this.fuenteFromState) {
+          this.fuenteForm.get('codigo')?.disable();
+        }
       },
       error: (error) => {
         console.error('Error al cargar opciones:', error);

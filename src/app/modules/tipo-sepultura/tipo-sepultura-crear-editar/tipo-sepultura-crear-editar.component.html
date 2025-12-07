@@ -1,0 +1,568 @@
+<div class="main-container">
+  <!-- Título -->
+  <div class="title-bar">
+    Mantenedor de Tipo de Sepultura
+  </div>
+
+  <!-- Formulario -->
+  <div class="form-card">
+    <form [formGroup]="tipoSepulturaForm" (ngSubmit)="onSubmit()" class="fuente-form">
+      <!-- Contenedor de dos columnas -->
+      <div style="display: flex; gap: 24px;">
+        <!-- Columna Izquierda -->
+        <div style="flex: 1;">
+          <!-- Parque -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="parque" class="form-label">
+                * Parque
+              </label>
+              <div class="form-input-wrapper">
+                <select
+                  id="parque"
+                  formControlName="parque"
+                  class="form-select"
+                  [class.error]="parque?.invalid && parque?.touched"
+                  [disabled]="isFieldReadonly('parque')">
+                  <option value="">Seleccione un parque</option>
+                  <option *ngFor="let parqueOption of parques" [value]="parqueOption.EMPR_COD">
+                    {{ parqueOption.UNEG_EMPR_DESC }}
+                  </option>
+                </select>
+                <span class="error-message" *ngIf="parque?.invalid && parque?.touched">
+                  El parque es requerido
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Código -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="codigo" class="form-label">
+                * Código
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="text"
+                  id="codigo"
+                  formControlName="codigo"
+                  class="form-input"
+                  [class.error]="codigo?.invalid && codigo?.touched"
+                  [readonly]="isFieldReadonly('codigo') || isEditMode || !!tipoSepulturaFromState">
+                <span class="error-message" *ngIf="codigo?.invalid && codigo?.touched">
+                  El código es requerido
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Descripción -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="descripcion" class="form-label">
+                * Descripción
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="text"
+                  id="descripcion"
+                  formControlName="descripcion"
+                  class="form-input"
+                  [class.error]="descripcion?.invalid && descripcion?.touched"
+                  [readonly]="isFieldReadonly('descripcion')">
+                <span class="error-message" *ngIf="descripcion?.invalid && descripcion?.touched">
+                  La descripción es requerida
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Descripción Larga -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="descripcionLarga" class="form-label">
+                * Descripción Larga
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="text"
+                  id="descripcionLarga"
+                  formControlName="descripcionLarga"
+                  class="form-input"
+                  [class.error]="descripcionLarga?.invalid && descripcionLarga?.touched"
+                  [readonly]="isFieldReadonly('descripcionLarga')">
+                <span class="error-message" *ngIf="descripcionLarga?.invalid && descripcionLarga?.touched">
+                  La descripción larga es requerida
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Característica -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="caracteristica" class="form-label">
+                * Característica
+              </label>
+              <div class="form-input-wrapper">
+                <select
+                  id="caracteristica"
+                  formControlName="caracteristica"
+                  class="form-select"
+                  [class.error]="caracteristica?.invalid && caracteristica?.touched"
+                  [disabled]="isFieldReadonly('caracteristica')">
+                  <option value="">Seleccione una característica</option>
+                  <option *ngFor="let caracteristicaOption of caracteristicas" [value]="caracteristicaOption.codigo">
+                    {{ caracteristicaOption.descripcion }}
+                  </option>
+                </select>
+                <span class="error-message" *ngIf="caracteristica?.invalid && caracteristica?.touched">
+                  La característica es requerida
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Compartimentos -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="compartimentos" class="form-label">
+                * Compartimentos
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="number"
+                  id="compartimentos"
+                  formControlName="compartimentos"
+                  class="form-input"
+                  [class.error]="compartimentos?.invalid && compartimentos?.touched"
+                  [readonly]="isFieldReadonly('compartimentos')">
+                <span class="error-message" *ngIf="compartimentos?.invalid && compartimentos?.touched">
+                  Los compartimentos son requeridos
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reducciones -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="reducciones" class="form-label">
+                * Reducciones
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="number"
+                  id="reducciones"
+                  formControlName="reducciones"
+                  class="form-input"
+                  [class.error]="reducciones?.invalid && reducciones?.touched"
+                  [readonly]="isFieldReadonly('reducciones')">
+                <span class="error-message" *ngIf="reducciones?.invalid && reducciones?.touched">
+                  Las reducciones son requeridas
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Capacidad Final con botón Calcular -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="capacidadFinal" class="form-label">
+                * Capacidad Final
+              </label>
+              <div class="form-input-wrapper" style="display: flex; gap: 8px; align-items: flex-start;">
+                <input
+                  type="number"
+                  id="capacidadFinal"
+                  formControlName="capacidadFinal"
+                  class="form-input"
+                  [class.error]="capacidadFinal?.invalid && capacidadFinal?.touched"
+                  [readonly]="isFieldReadonly('capacidadFinal')"
+                  style="flex: 1;">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="calcularCapacidadFinal()"
+                  [disabled]="isFieldReadonly('capacidadFinal') || !compartimentos?.value || !reducciones?.value"
+                  style="min-width: 100px; height: 32px;">
+                  Calcular
+                </button>
+                <span class="error-message" *ngIf="capacidadFinal?.invalid && capacidadFinal?.touched" style="width: 100%;">
+                  La capacidad final es requerida
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comunitaria -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="comunitaria" class="form-label">
+                * Comunitaria
+              </label>
+              <div class="form-input-wrapper">
+                <select
+                  id="comunitaria"
+                  formControlName="comunitaria"
+                  class="form-select"
+                  [class.error]="comunitaria?.invalid && comunitaria?.touched"
+                  [disabled]="isFieldReadonly('comunitaria')">
+                  <option value="">Seleccione una opción</option>
+                  <option *ngFor="let comunitariaOption of comunitarias" [value]="comunitariaOption.codigo">
+                    {{ comunitariaOption.descripcion }}
+                  </option>
+                </select>
+                <span class="error-message" *ngIf="comunitaria?.invalid && comunitaria?.touched">
+                  La opción comunitaria es requerida
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tercios -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="tercios" class="form-label">
+                * Tercios
+              </label>
+              <div class="form-input-wrapper">
+                <select
+                  id="tercios"
+                  formControlName="tercios"
+                  class="form-select"
+                  [class.error]="tercios?.invalid && tercios?.touched"
+                  [disabled]="isFieldReadonly('tercios')"
+                  (change)="onTerciosChange()">
+                  <option value="">Seleccione una opción</option>
+                  <option *ngFor="let tercioOption of opcionesTercios" [value]="tercioOption.codigo">
+                    {{ tercioOption.descripcion }}
+                  </option>
+                </select>
+                <span class="error-message" *ngIf="tercios?.invalid && tercios?.touched">
+                  La opción tercios es requerida
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Temporalidad o Perpetua (Radio Buttons) -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label class="form-label">
+                * Temporalidad o Perpetua
+              </label>
+              <div class="form-input-wrapper" style="display: flex; gap: 16px; align-items: center; padding-top: 6px;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                  <input
+                    type="radio"
+                    formControlName="temporalidad"
+                    value="PERPETUO"
+                    [disabled]="isFieldReadonly('temporalidad')"
+                    style="cursor: pointer;">
+                  <span>Perpetuo</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                  <input
+                    type="radio"
+                    formControlName="temporalidad"
+                    value="TEMPORAL"
+                    [disabled]="isFieldReadonly('temporalidad')"
+                    style="cursor: pointer;">
+                  <span>Temporal</span>
+                </label>
+              </div>
+              <span class="error-message" *ngIf="temporalidad?.invalid && temporalidad?.touched">
+                La temporalidad es requerida
+              </span>
+            </div>
+          </div>
+
+          <!-- Tipo Lapida -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="tipoLapida" class="form-label">
+                * Tipo Lapida
+              </label>
+              <div class="form-input-wrapper">
+                <select
+                  id="tipoLapida"
+                  formControlName="tipoLapida"
+                  class="form-select"
+                  [class.error]="tipoLapida?.invalid && tipoLapida?.touched"
+                  [disabled]="isFieldReadonly('tipoLapida')">
+                  <option value="">Seleccione un tipo</option>
+                  <option *ngFor="let tipoLapidaOption of tipoLapidas" [value]="tipoLapidaOption.codigo">
+                    {{ tipoLapidaOption.descripcion }}
+                  </option>
+                </select>
+                <span class="error-message" *ngIf="tipoLapida?.invalid && tipoLapida?.touched">
+                  El tipo de lápida es requerido
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nivel Total -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="nivelTotal" class="form-label">
+                * Nivel Total
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="number"
+                  id="nivelTotal"
+                  formControlName="nivelTotal"
+                  class="form-input"
+                  [class.error]="nivelTotal?.invalid && nivelTotal?.touched"
+                  [readonly]="isFieldReadonly('nivelTotal')">
+                <span class="error-message" *ngIf="nivelTotal?.invalid && nivelTotal?.touched">
+                  El nivel total es requerido
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Número Osario -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="numeroOsario" class="form-label">
+                * Número Osario
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="number"
+                  id="numeroOsario"
+                  formControlName="numeroOsario"
+                  class="form-input"
+                  [class.error]="numeroOsario?.invalid && numeroOsario?.touched"
+                  [readonly]="isFieldReadonly('numeroOsario')">
+                <span class="error-message" *ngIf="numeroOsario?.invalid && numeroOsario?.touched">
+                  El número de osario es requerido
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Acepta C. Entero -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="aceptaCuerpoEntero" class="form-label">
+                * Acepta C. Entero
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="number"
+                  step="0.01"
+                  id="aceptaCuerpoEntero"
+                  formControlName="aceptaCuerpoEntero"
+                  class="form-input"
+                  [class.error]="aceptaCuerpoEntero?.invalid && aceptaCuerpoEntero?.touched"
+                  [readonly]="isFieldReadonly('aceptaCuerpoEntero')">
+                <span class="error-message" *ngIf="aceptaCuerpoEntero?.invalid && aceptaCuerpoEntero?.touched">
+                  Este campo es requerido
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Acepta Cofre -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="aceptaCofre" class="form-label">
+                * Acepta Cofre
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="number"
+                  step="0.01"
+                  id="aceptaCofre"
+                  formControlName="aceptaCofre"
+                  class="form-input"
+                  [class.error]="aceptaCofre?.invalid && aceptaCofre?.touched"
+                  [readonly]="isFieldReadonly('aceptaCofre')">
+                <span class="error-message" *ngIf="aceptaCofre?.invalid && aceptaCofre?.touched">
+                  Este campo es requerido
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha -->
+        <div style="flex: 1;">
+          <!-- Estado -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="estado" class="form-label">
+                * Estado
+              </label>
+              <div class="form-input-wrapper">
+                <select
+                  id="estado"
+                  formControlName="estado"
+                  class="form-select"
+                  [class.error]="estado?.invalid && estado?.touched"
+                  [disabled]="isFieldReadonly('estado')">
+                  <option value="">Seleccione un estado</option>
+                  <option *ngFor="let estadoOption of estados" [value]="estadoOption.codigo">
+                    {{ estadoOption.descripcion }}
+                  </option>
+                </select>
+                <span class="error-message" *ngIf="estado?.invalid && estado?.touched">
+                  El estado es requerido
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Número de Tercios -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="numeroTercios" class="form-label">
+                * Número de Tercios
+              </label>
+              <div class="form-input-wrapper">
+                <select
+                  id="numeroTercios"
+                  formControlName="numeroTercios"
+                  class="form-select"
+                  [class.error]="numeroTercios?.invalid && numeroTercios?.touched"
+                  [disabled]="isFieldReadonly('numeroTercios')">
+                  <option value="">Seleccione un número</option>
+                  <option *ngFor="let numTercio of opcionesNumeroTercios" [value]="numTercio">
+                    {{ numTercio }}
+                  </option>
+                </select>
+                <span class="error-message" *ngIf="numeroTercios?.invalid && numeroTercios?.touched">
+                  El número de tercios es requerido
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Largo -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="largo" class="form-label">
+                * Largo
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="number"
+                  step="0.01"
+                  id="largo"
+                  formControlName="largo"
+                  class="form-input"
+                  [class.error]="largo?.invalid && largo?.touched"
+                  [readonly]="isFieldReadonly('largo')">
+                <span class="error-message" *ngIf="largo?.invalid && largo?.touched">
+                  El largo es requerido
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ancho -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="ancho" class="form-label">
+                * Ancho
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="number"
+                  step="0.01"
+                  id="ancho"
+                  formControlName="ancho"
+                  class="form-input"
+                  [class.error]="ancho?.invalid && ancho?.touched"
+                  [readonly]="isFieldReadonly('ancho')">
+                <span class="error-message" *ngIf="ancho?.invalid && ancho?.touched">
+                  El ancho es requerido
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nivel Propio -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="nivelPropio" class="form-label">
+                * Nivel Propio
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="number"
+                  id="nivelPropio"
+                  formControlName="nivelPropio"
+                  class="form-input"
+                  [class.error]="nivelPropio?.invalid && nivelPropio?.touched"
+                  [readonly]="isFieldReadonly('nivelPropio')">
+                <span class="error-message" *ngIf="nivelPropio?.invalid && nivelPropio?.touched">
+                  El nivel propio es requerido
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Acepta Reducción Ext. -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="aceptaReduccionExt" class="form-label">
+                * Acepta Reducción Ext.
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="number"
+                  step="0.01"
+                  id="aceptaReduccionExt"
+                  formControlName="aceptaReduccionExt"
+                  class="form-input"
+                  [class.error]="aceptaReduccionExt?.invalid && aceptaReduccionExt?.touched"
+                  [readonly]="isFieldReadonly('aceptaReduccionExt')">
+                <span class="error-message" *ngIf="aceptaReduccionExt?.invalid && aceptaReduccionExt?.touched">
+                  Este campo es requerido
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Acepta Párvulo -->
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="aceptaParvulo" class="form-label">
+                * Acepta Párvulo
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="number"
+                  step="0.01"
+                  id="aceptaParvulo"
+                  formControlName="aceptaParvulo"
+                  class="form-input"
+                  [class.error]="aceptaParvulo?.invalid && aceptaParvulo?.touched"
+                  [readonly]="isFieldReadonly('aceptaParvulo')">
+                <span class="error-message" *ngIf="aceptaParvulo?.invalid && aceptaParvulo?.touched">
+                  Este campo es requerido
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones de Acción -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="volver()">
+          Volver
+        </button>
+        <button type="submit" class="btn btn-success">
+          Aceptar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

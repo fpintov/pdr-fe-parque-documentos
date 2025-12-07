@@ -1,0 +1,235 @@
+<div class="main-container">
+
+  <!-- Título -->
+  <div class="title-bar">
+    Mantenedor de Tipo de Sepultura
+  </div>
+
+  <!-- Filtros de Parque -->
+  <div class="table-card" style="margin-bottom: 12px;">
+    <div style="display: flex; align-items: center; gap: 12px; padding: 12px;">
+      <label style="font-weight: 500; min-width: 80px;">Parque:</label>
+      <div style="flex: 1; max-width: 300px;">
+        <select 
+          class="form-select"
+          [(ngModel)]="parqueSeleccionado"
+          (ngModelChange)="onParqueChange()"
+          style="width: 100%;">
+          <option [ngValue]="null">Seleccione un parque</option>
+          <option *ngFor="let parque of parques" [ngValue]="parque">
+            {{ parque.UNEG_EMPR_DESC }}
+          </option>
+        </select>
+      </div>
+      <button class="btn btn-primary" (click)="buscar()" style="min-width: 100px;">
+        Buscar
+      </button>
+      <button class="btn btn-secondary" (click)="limpiar()" style="min-width: 100px;">
+        Limpiar
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabla -->
+  <div class="table-card">
+    <div class="table-container">
+      <table class="fuentes-table">
+        <!-- Header Row -->
+        <thead>
+          <tr class="header-row">
+            <th>Codigo</th>
+            <th>Descripción Corta</th>
+            <th>Característica</th>
+            <th>Compartimentos</th>
+            <th>Reducciones</th>
+            <th>Capacidad Final</th>
+            <th>Comunitaria</th>
+            <th>Estado</th>
+            <th>Tercios</th>
+            <th>Número de Tercios</th>
+            <th>Nivel Total</th>
+            <th>Nivel Propio</th>
+          </tr>
+        </thead>
+        
+        <!-- Filter Row -->
+        <thead>
+          <tr class="filter-row">
+            <th class="filter-header">
+              <input 
+                type="text" 
+                class="filter-input" 
+                [(ngModel)]="filtroCodigo" 
+                (ngModelChange)="onFilterChange()" 
+                placeholder="Filtrar Codigo">
+            </th>
+            <th class="filter-header">
+              <input 
+                type="text" 
+                class="filter-input" 
+                [(ngModel)]="filtroDescripcionCorta" 
+                (ngModelChange)="onFilterChange()" 
+                placeholder="Filtrar Descripción">
+            </th>
+            <th class="filter-header">
+              <select 
+                class="filter-select" 
+                [(ngModel)]="filtroCaracteristica" 
+                (ngModelChange)="onFilterChange()">
+                <option value="">Todas</option>
+                <option *ngFor="let caracteristica of caracteristicas" [value]="caracteristica">{{ caracteristica }}</option>
+              </select>
+            </th>
+            <th class="filter-header">
+              <input 
+                type="text" 
+                class="filter-input" 
+                [(ngModel)]="filtroCompartimentos" 
+                (ngModelChange)="onFilterChange()" 
+                placeholder="Filtrar">
+            </th>
+            <th class="filter-header">
+              <input 
+                type="text" 
+                class="filter-input" 
+                [(ngModel)]="filtroReducciones" 
+                (ngModelChange)="onFilterChange()" 
+                placeholder="Filtrar">
+            </th>
+            <th class="filter-header">
+              <input 
+                type="text" 
+                class="filter-input" 
+                [(ngModel)]="filtroCapacidadFinal" 
+                (ngModelChange)="onFilterChange()" 
+                placeholder="Filtrar">
+            </th>
+            <th class="filter-header">
+              <select 
+                class="filter-select" 
+                [(ngModel)]="filtroComunitaria" 
+                (ngModelChange)="onFilterChange()">
+                <option value="">Todas</option>
+                <option *ngFor="let comunitaria of comunitarias" [value]="comunitaria">{{ comunitaria }}</option>
+              </select>
+            </th>
+            <th class="filter-header">
+              <select 
+                class="filter-select" 
+                [(ngModel)]="filtroEstado" 
+                (ngModelChange)="onFilterChange()">
+                <option value="">Todos</option>
+                <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+              </select>
+            </th>
+            <th class="filter-header">
+              <select 
+                class="filter-select" 
+                [(ngModel)]="filtroTercios" 
+                (ngModelChange)="onFilterChange()">
+                <option value="">Todos</option>
+                <option *ngFor="let tercio of tercios" [value]="tercio">{{ tercio }}</option>
+              </select>
+            </th>
+            <th class="filter-header">
+              <input 
+                type="text" 
+                class="filter-input" 
+                [(ngModel)]="filtroNumeroTercios" 
+                (ngModelChange)="onFilterChange()" 
+                placeholder="Filtrar">
+            </th>
+            <th class="filter-header">
+              <input 
+                type="text" 
+                class="filter-input" 
+                [(ngModel)]="filtroNivelTotal" 
+                (ngModelChange)="onFilterChange()" 
+                placeholder="Filtrar">
+            </th>
+            <th class="filter-header">
+              <input 
+                type="text" 
+                class="filter-input" 
+                [(ngModel)]="filtroNivelPropio" 
+                (ngModelChange)="onFilterChange()" 
+                placeholder="Filtrar">
+            </th>
+          </tr>
+        </thead>
+
+        <!-- Data Rows -->
+        <tbody>
+          <tr 
+            *ngFor="let tipoSepultura of paginatedTiposSepultura" 
+            class="data-row"
+            [class.selected-row]="selectedTipoSepultura?.codigo === tipoSepultura.codigo"
+            (click)="selectTipoSepultura(tipoSepultura)">
+            <td>{{ tipoSepultura.codigo }}</td>
+            <td>{{ tipoSepultura.descripcionCorta || tipoSepultura.descripcion }}</td>
+            <td>{{ tipoSepultura.caracteristicaDesc || tipoSepultura.caracteristica }}</td>
+            <td>{{ tipoSepultura.compartimentos }}</td>
+            <td>{{ tipoSepultura.reducciones }}</td>
+            <td>{{ tipoSepultura.capacidadFinal }}</td>
+            <td>{{ tipoSepultura.comunitaria }}</td>
+            <td>{{ tipoSepultura.estado.descripcion }}</td>
+            <td>{{ tipoSepultura.tercios }}</td>
+            <td>{{ tipoSepultura.numeroTercios }}</td>
+            <td>{{ tipoSepultura.nivelTotal }}</td>
+            <td>{{ tipoSepultura.nivelPropio }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginación y Botones -->
+    <div class="table-footer">
+      <!-- Paginación -->
+      <div class="pagination">
+        <button 
+          class="page-button" 
+          (click)="onFirstPage()" 
+          [disabled]="currentPage === 1"
+          title="Primera página">
+          ««
+        </button>
+        <button 
+          class="page-button" 
+          (click)="onPreviousPage()" 
+          [disabled]="currentPage === 1"
+          title="Página anterior">
+          ‹
+        </button>
+        <span class="page-info">Pag. {{ currentPage }} de {{ totalPages }}</span>
+        <button 
+          class="page-button" 
+          (click)="onNextPage()" 
+          [disabled]="currentPage === totalPages"
+          title="Página siguiente">
+          ›
+        </button>
+        <button 
+          class="page-button" 
+          (click)="onLastPage()" 
+          [disabled]="currentPage === totalPages"
+          title="Última página">
+          »»
+        </button>
+      </div>
+
+      <!-- Botones de Acción -->
+      <div class="action-buttons">
+        <button class="btn btn-primary btn-nuevo" (click)="nuevo()">
+          Nuevo
+        </button>
+        <button 
+          class="btn btn-success" 
+          (click)="regularizar()"
+          [disabled]="!selectedTipoSepultura">
+          Regularizar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

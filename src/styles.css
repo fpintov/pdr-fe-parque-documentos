@@ -18,12 +18,17 @@ html, body {
   padding-left: 20px;
 }
 
-/* Título */
-.page-title {
-  font-size: 24px;
-  font-weight: 500;
-  margin-bottom: 24px;
-  color: #333;
+/* Title bar */
+.title-bar {
+  background-color: #218838!important;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid #e0e0e0;
+  color: #fff;
+  text-indent: 16px;
 }
 
 /* Card de la tabla */

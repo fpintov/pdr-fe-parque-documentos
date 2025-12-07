@@ -60,6 +60,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   menuItems = [
-    { name: 'Administración de Fuentes', icon: 'source', route: '/adm-fuentes' }
+    { name: 'Administración de Fuentes', icon: 'source', route: '/adm-fuentes' },
+    { name: 'Tipo de Sepultura', icon: 'account_box', route: '/tipo-sepultura' }
   ];
 }

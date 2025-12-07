@@ -1,7 +1,9 @@
 <div class="main-container">
 
   <!-- Título -->
-  <h1 class="page-title">Mantenedor de Fuentes</h1>
+  <div class="title-bar">
+    Mantenedor de Fuentes
+  </div>
 
   <!-- Tabla -->
   <div class="table-card">
@@ -125,7 +127,7 @@
           Nuevo
         </button>
         <button 
-          class="btn btn-accent btn-regularizar" 
+          class="btn btn-success" 
           (click)="regularizar()"
           [disabled]="!selectedFuente">
           Regularizar

@@ -157,7 +157,7 @@ mat-toolbar button mat-icon {
 .main-content {
   padding: 24px;
   min-height: calc(100vh - 64px);
-  background-color: #fafafa;
+  background-color: #f8f9fc;
 }
 
 /* Estilos para cuando el sidenav está contraído */
